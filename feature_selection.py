@@ -6,12 +6,45 @@ Created on Sat Jun 07 16:38:56 2014
 """
 
 class Features:
-    
-    def simple():
+    """
+    A = 0
+    T = 1
+    G = 2
+    C = 3
+    (D = 4)
+    (N = 5)
+    (S = 6)
+    (R = 7)
+    """    
+    def _convert_base(self, base):
+        if base == 'A':
+            return 0
+        elif base == 'T':
+            return 1
+        elif base == 'G':
+            return 2
+        elif base == 'C':
+            return 3
+        elif base == 'D':
+            return 4
+        elif base == 'N':
+            return 5
+        elif base == 'S':
+            return 6
+        else:
+            return 7
+            
+    def simple(self, data):
+        training_data = []
+        for dna_seq, label in data:
+            tmp = []
+            for base in dna_seq:
+                tmp.append(self._convert_base(base))
+            training_data.append((tmp, label))
+        return training_data
+        
+    def codon(self, data):
         return 0
         
-    def codon():
-        return 0
-        
-    def amino_acid():
+    def amino_acid(self, data):
         return 0

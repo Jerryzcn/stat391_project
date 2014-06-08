@@ -60,6 +60,6 @@ def generate_training_val_set(training_data_size, training_file, validation_file
     return (training_set, validation_set)
 
 def read_training_val_set(training_file, validation_file):
-    training_set = np.genfromtxt(training_file, delimiter='\n')
-    validation_set = np.genfromtxt(validation_file, delimiter='\n')
+    training_set = np.genfromtxt(training_file, dtype='int', delimiter='\n')
+    validation_set = np.genfromtxt(validation_file, dtype='int', delimiter='\n')
     return (training_set, validation_set)
