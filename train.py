@@ -27,7 +27,7 @@ def train_and_val():
     
     for index in validation_set_indices:
         feature_vector, correct_class = features_labels_pair[index]
-        prediction = naive_bayes.predict(feature_vector, False)
+        prediction = naive_bayes.predict(feature_vector)
         if  prediction != correct_class:
             error_count += 1
         if correct_class == 1:

@@ -21,10 +21,10 @@ def train_and_test():
     error_count = 0
     for index in range(len(test_set)):
         feature_vector, correct_class = test_set[index]
-        prediction = naive_bayes.predict(feature_vector, True)
+        prediction = naive_bayes.predict(feature_vector)
         if  prediction != correct_class:
             error_count += 1
-        #print prediction, correct_class
+        print prediction, correct_class
     error_rate = float(error_count)/len(test_set)
     print 'error rate:', error_rate
     

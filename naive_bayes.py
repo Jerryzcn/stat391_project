@@ -65,7 +65,7 @@ class NaiveBayes:
         print 'prior' ,self.prior
             
             
-    def predict(self, features, prior):
+    def predict(self, features):
         loglikelihood = [0.0, 0.0, 0.0]
         for i in range(3):
             for j in range(self.features_size):
@@ -73,10 +73,10 @@ class NaiveBayes:
                 if k > 3:
                     continue
                 loglikelihood[i] += np.log(self.conditional_likelihood[i,j,k])
-        if prior:
-            loglikelihood[0] += np.log(self.prior[0])
-            loglikelihood[1] += np.log(self.prior[1])
-            loglikelihood[2] += np.log(self.prior[2])
+
+        loglikelihood[0] += np.log(self.prior[0])
+        loglikelihood[1] += np.log(self.prior[1])
+        loglikelihood[2] += np.log(self.prior[2])
             
         #print 'log-likelyhood', loglikelihood
             
