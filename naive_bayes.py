@@ -49,7 +49,7 @@ class NaiveBayes:
         self._learn_model(observation, smoothing)
         
     def _learn_model(self, observation, smoothing):
-        print observation
+        #print observation
         for i in range(3):
             for j in range(self.features_size):
                 for k in range(self.num_feature_type):
