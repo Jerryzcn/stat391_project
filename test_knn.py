@@ -18,12 +18,12 @@ def train_and_test():
     
     
     dp.remove_ambiguous_entry(training_set)    
-    k_nearest_neighbors = KNN(training_set, 4)
+    k_nearest_neighbors = KNN(training_set, 16)
     
     error_count = 0
     for index in range(len(test_set)):
         feature_vector, correct_class = test_set[index]
-        prediction = k_nearest_neighbors.predict(feature_vector)
+        prediction = k_nearest_neighbors.predict_diff_bases(feature_vector)
         if  prediction != correct_class:
             error_count += 1
         print prediction, correct_class
