@@ -16,7 +16,7 @@ class NaiveBayes:
         self.num_feature_type = num_feature_type
         self.prior = [0, 0, 0]
         observation = np.zeros([3, self.features_size, num_feature_type])
-        self.conditional_likelihood = np.empty([3, self.features_size, num_feature_type])
+        self.conditional_likelihood = np.zeros([3, self.features_size, num_feature_type])
         # conditional_likelihood[i,j,k] = P(Fj = k | i)
         self.training_example_size = len(training_set)
         print 'Counting evidences'
