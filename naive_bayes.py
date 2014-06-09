@@ -60,5 +60,4 @@ class NaiveBayes:
         loglikelihood[2] += np.log(self.prior[2])
             
         #print 'log-likelyhood', loglikelihood
-            
         return np.argmax(loglikelihood)

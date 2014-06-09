@@ -44,4 +44,4 @@ class KNN:
         print k_nearest_neighbors
         for neighbor in k_nearest_neighbors:
             dna_class[neighbor[1]] += 1
-        return 0
+        return np.argmax(dna_class)
