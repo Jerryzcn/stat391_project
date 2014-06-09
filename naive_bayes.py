@@ -24,26 +24,29 @@ class NaiveBayes:
             counter = 0
             self.prior[label] += 1
             for feature in features:
-                if ingore_ambiguity and feature > 3:
+                if ingore_ambiguity and feature >= self.num_feature_type:
                     counter += 1
                     continue
-                if feature == 4:
-                   observation[label, counter, 0] += 1.0/3
-                   observation[label, counter, 1] += 1.0/3
-                   observation[label, counter, 2] += 1.0/3
-                elif feature == 5:
-                    observation[label, counter, 0] += 0.25
-                    observation[label, counter, 1] += 0.25
-                    observation[label, counter, 2] += 0.25
-                    observation[label, counter, 3] += 0.25
-                elif feature == 6:
-                    observation[label, counter, 2] += 0.5
-                    observation[label, counter, 3] += 0.5
-                elif feature == 7:
-                    observation[label, counter, 0] += 0.5
-                    observation[label, counter, 2] += 0.5
-                else:
-                    observation[label, counter, feature] += 1
+                if (num_feature_type == 4):
+                    if feature == 4:
+                        observation[label, counter, 0] += 1.0/3
+                        observation[label, counter, 1] += 1.0/3
+                        observation[label, counter, 2] += 1.0/3
+                    elif feature == 5:
+                        observation[label, counter, 0] += 0.25
+                        observation[label, counter, 1] += 0.25
+                        observation[label, counter, 2] += 0.25
+                        observation[label, counter, 3] += 0.25
+                    elif feature == 6:
+                        observation[label, counter, 2] += 0.5
+                        observation[label, counter, 3] += 0.5
+                    elif feature == 7:
+                        observation[label, counter, 0] += 0.5
+                        observation[label, counter, 2] += 0.5
+                    else:
+                        observation[label, counter, feature] += 1
+                        
+                
             
                 counter += 1
         self._learn_model(observation, smoothing)
