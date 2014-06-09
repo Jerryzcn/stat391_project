@@ -18,21 +18,21 @@ class Features:
     """    
     def _convert_base(self, base):
         if base == 'A':
-            return 0
+            return [0]
         elif base == 'T':
-            return 1
+            return [1]
         elif base == 'G':
-            return 2
+            return [2]
         elif base == 'C':
-            return 3
+            return [3]
         elif base == 'D':
-            return 4
+            return [0,1,2]
         elif base == 'N':
-            return 5
+            return [0,1,2,3]
         elif base == 'S':
-            return 6
+            return [2,3]
         else:
-            return 7
+            return [0,2]
             
     def simple(self, data):
         training_data = []

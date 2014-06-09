@@ -67,5 +67,5 @@ def read_training_val_set(training_file, validation_file):
 def remove_ambiguous_entry(data):    
     for entry in data:
         for base in entry[0]:
-            if base > 3:
+            if len(base) != 1:
                 data.remove(entry)

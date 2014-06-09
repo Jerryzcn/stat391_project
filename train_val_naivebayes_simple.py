@@ -18,7 +18,7 @@ def train_and_val():
         training_set.append(features_labels_pair[index])
     
     dp.remove_ambiguous_entry(training_set)
-    naive_bayes = NaiveBayes(training_set, 4, False, False)
+    naive_bayes = NaiveBayes(training_set, 4, False)
     
     error_count = 0
     num_recalled1 = 0

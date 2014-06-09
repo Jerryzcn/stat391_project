@@ -18,7 +18,7 @@ def train_and_test():
     
     
     dp.remove_ambiguous_entry(training_set)    
-    naive_bayes = NaiveBayes(training_set, 4, False, False)
+    naive_bayes = NaiveBayes(training_set, 4, False)
     
     error_count = 0
     for index in range(len(test_set)):

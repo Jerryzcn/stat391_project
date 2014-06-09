@@ -11,11 +11,11 @@ import numpy as np
 
 class NaiveBayes:
     
-    def __init__(self, training_set, num_feature_type, smoothing, ingore_ambiguity):
+    def __init__(self, training_set, num_feature_type, smoothing):
         self.features_size = len(training_set[0][0])
         self.num_feature_type = num_feature_type
         self.prior = [0, 0, 0]
-        observation = np.empty([3, self.features_size, num_feature_type])
+        observation = np.zeros([3, self.features_size, num_feature_type])
         self.conditional_likelihood = np.empty([3, self.features_size, num_feature_type])
         # conditional_likelihood[i,j,k] = P(Fj = k | i)
         self.training_example_size = len(training_set)
@@ -24,30 +24,8 @@ class NaiveBayes:
             counter = 0
             self.prior[label] += 1
             for feature in features:
-                if ingore_ambiguity and feature >= self.num_feature_type:
-                    counter += 1
-                    continue
-                if (num_feature_type == 4):
-                    if feature == 4:
-                        observation[label, counter, 0] += 1.0/3
-                        observation[label, counter, 1] += 1.0/3
-                        observation[label, counter, 2] += 1.0/3
-                    elif feature == 5:
-                        observation[label, counter, 0] += 0.25
-                        observation[label, counter, 1] += 0.25
-                        observation[label, counter, 2] += 0.25
-                        observation[label, counter, 3] += 0.25
-                    elif feature == 6:
-                        observation[label, counter, 2] += 0.5
-                        observation[label, counter, 3] += 0.5
-                    elif feature == 7:
-                        observation[label, counter, 0] += 0.5
-                        observation[label, counter, 2] += 0.5
-                    else:
-                        observation[label, counter, feature] += 1
-                        
-                
-            
+                for letter in feature:
+                    observation[label, counter, letter] += 1.0/len(feature)                        
                 counter += 1
         self._learn_model(observation, smoothing)
         
@@ -72,8 +50,8 @@ class NaiveBayes:
         loglikelihood = [0.0, 0.0, 0.0]
         for i in range(3):
             for j in range(self.features_size):
-                k = features[j]
-                if k > 3:
+                k = features[j][0]
+                if len(features[j]) != 1:
                     continue
                 loglikelihood[i] += np.log(self.conditional_likelihood[i,j,k])
 

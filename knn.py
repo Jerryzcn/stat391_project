@@ -7,6 +7,13 @@ K-Nearest Neighbors classifier.
 @author: Jerry
 """
 
+import numpy as np
+import heapq
+
 class KNN:
-    def __init__(training_set, k):
-        return 0
+    def __init__(self, training_set, k):
+        self.k = k
+        self.instances = training_set
+    
+    def predict(self, features):
+        
