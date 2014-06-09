@@ -63,3 +63,9 @@ def read_training_val_set(training_file, validation_file):
     training_set = np.genfromtxt(training_file, dtype='int', delimiter='\n')
     validation_set = np.genfromtxt(validation_file, dtype='int', delimiter='\n')
     return (training_set, validation_set)
+    
+def remove_ambiguous_entry(data):    
+    for entry in data:
+        for base in entry[0]:
+            if base > 3:
+                data.remove(entry)

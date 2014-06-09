@@ -17,6 +17,7 @@ def train_and_val():
     for index in training_set_indices:
         training_set.append(features_labels_pair[index])
     
+    dp.remove_ambiguous_entry(training_set)
     naive_bayes = NaiveBayes(training_set, 4, False, False)
     
     error_count = 0
@@ -29,8 +30,12 @@ def train_and_val():
     num_class1_prediction = 0
     num_class2_prediction = 0
     
+    validation_set = []
     for index in validation_set_indices:
-        feature_vector, correct_class = features_labels_pair[index]
+        validation_set.append(features_labels_pair[index])
+    
+    dp.remove_ambiguous_entry(validation_set)
+    for feature_vector, correct_class in validation_set: 
         prediction = naive_bayes.predict(feature_vector)
         if  prediction != correct_class:
             error_count += 1
