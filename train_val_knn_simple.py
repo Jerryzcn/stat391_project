@@ -19,7 +19,7 @@ def train_and_val():
         training_set.append(features_labels_pair[index])
     
     dp.remove_ambiguous_entry(training_set)
-    k_nn = KNN(training_set, 19)
+    k_nn = KNN(training_set, 19, KNN.quadratic_weight)
     
     error_count = 0
     num_recalled1 = 0

@@ -55,3 +55,6 @@ class KNN:
     
     def linear_weight(distance):
         return 60 - distance
+
+    def quadratic_weight(distance):
+        return 360 - distance**2
