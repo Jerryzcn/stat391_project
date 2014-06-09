@@ -52,3 +52,6 @@ class KNN:
 
     def inverse_dis_weight(distance):
         return 1.0/distance
+    
+    def linear_weight(distance):
+        return 60 - distance
