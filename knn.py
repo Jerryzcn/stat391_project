@@ -11,9 +11,10 @@ import heapq
 import numpy as np
 
 class KNN:
-    def __init__(self, training_set, k):
+    def __init__(self, training_set, k, weight_fn):
         self.k = k
         self.instances = training_set
+        self.weight_fn = weight_fn
     
     def predict_diff_bases(self, features):
         neighbor_distance = []
@@ -43,5 +44,11 @@ class KNN:
         dna_class = [0,0,0]
         print k_nearest_neighbors
         for neighbor in k_nearest_neighbors:
-            dna_class[neighbor[1]] += 1
+            dna_class[neighbor[1]] += self.weight_fn(neighbor[0])
         return np.argmax(dna_class)
+    
+    def no_weight(distance):
+        return distance
+
+    def inverse_dis_weight(distance):
+        return 1.0/distance

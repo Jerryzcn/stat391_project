@@ -18,7 +18,7 @@ def train_and_test():
     
     
     dp.remove_ambiguous_entry(training_set)    
-    k_nearest_neighbors = KNN(training_set, 19)
+    k_nearest_neighbors = KNN(training_set, 19, KNN.inverse_dis_weight)
     
     error_count = 0
     for index in range(len(test_set)):
