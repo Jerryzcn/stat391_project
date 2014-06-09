@@ -16,6 +16,8 @@ def train_and_test():
     training_set = feature.simple(training_data)
     test_set = feature.simple(test_data)
     
+    
+    dp.remove_ambiguous_entry(training_set)    
     naive_bayes = NaiveBayes(training_set, 4, False, False)
     
     error_count = 0
