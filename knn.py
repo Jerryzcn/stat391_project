@@ -11,12 +11,11 @@ import heapq
 import numpy as np
 
 class KNN:
-    def __init__(self, training_set, k, weight_fn):
+    def __init__(self, training_set, k):
         self.k = k
         self.instances = training_set
-        self.weight_fn = weight_fn
     
-    def predict_diff_bases(self, features):
+    def predict_diff_bases(self, features, weight_fn):
         neighbor_distance = []
         for instance in self.instances:
             distance = 0
@@ -28,10 +27,10 @@ class KNN:
         dna_class = [0,0,0]
         print k_nearest_neighbors
         for neighbor in k_nearest_neighbors:
-            dna_class[neighbor[1]] += 1
+            dna_class[neighbor[1]] += weight_fn(neighbor[0])
         return np.argmax(dna_class)
         
-    def predict(self, features):
+    def predict(self, features, weight_fn):
         neighbor_distance = []
         for instance in self.instances:
             distance = 0
@@ -44,17 +43,17 @@ class KNN:
         dna_class = [0,0,0]
         print k_nearest_neighbors
         for neighbor in k_nearest_neighbors:
-            dna_class[neighbor[1]] += self.weight_fn(neighbor[0])
+            dna_class[neighbor[1]] += weight_fn(neighbor[0])
         return np.argmax(dna_class)
     
-    def no_weight(distance):
+    def no_weight(self, distance):
         return distance
 
-    def inverse_dis_weight(distance):
+    def inverse_dis_weight(self, distance):
         return 1.0/distance
     
-    def linear_weight(distance):
+    def linear_weight(self, distance):
         return 60 - distance
 
-    def quadratic_weight(distance):
+    def quadratic_weight(self, distance):
         return 360 - distance**2
