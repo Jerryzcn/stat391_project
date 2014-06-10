@@ -19,7 +19,7 @@ def train_and_val():
         training_set.append(features_labels_pair[index])
     
     dp.remove_ambiguous_entry(training_set)
-    k_nn = KNN(training_set, 19, KNN.quadratic_weight)
+    k_nn = KNN(training_set, 19)
     
     error_count = 0
     num_recalled1 = 0
@@ -37,7 +37,7 @@ def train_and_val():
     
     dp.remove_ambiguous_entry(validation_set)
     for feature_vector, correct_class in validation_set: 
-        prediction = k_nn.predict_diff_bases(feature_vector)
+        prediction = k_nn.predict_diff_bases(feature_vector, k_nn.no_weight)
         if  prediction != correct_class:
             error_count += 1
         if correct_class == 1:

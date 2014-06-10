@@ -15,7 +15,7 @@ def train_and_val():
     training_set_indices, validation_set_indices = dp.read_training_val_set('dataset/train.txt', 'dataset/val.txt')
     feature = Features()
     dp.remove_ambiguous_entry(training_data)
-    features_labels_pair = feature.codon_count(training_data)
+    features_labels_pair = feature.amino_acid_count(training_data)
     training_set = []
     for index in training_set_indices:
         training_set.append(features_labels_pair[index])
