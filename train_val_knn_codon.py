@@ -13,14 +13,15 @@ from knn import KNN
 def train_and_val():
     training_data = dp.read_data('dataset/splice-Xtrain.dat', 'dataset/splice-Ytrain.dat')
     training_set_indices, validation_set_indices = dp.read_training_val_set('dataset/train.txt', 'dataset/val.txt')
-    feature = Features()    
-    features_labels_pair = feature.simple(training_data)
+    feature = Features()
+    dp.remove_ambiguous_entry(training_data)
+    features_labels_pair = feature.codon_count(training_data)
     training_set = []
     for index in training_set_indices:
         training_set.append(features_labels_pair[index])
     
-    dp.remove_ambiguous_entry(training_set)
-    k_nn = KNN(training_set, 19, KNN.quadratic_weight)
+    #dp.remove_ambiguous_entry(training_set)
+    k_nn = KNN(training_set, 22)
     
     error_count = 0
     num_recalled1 = 0
@@ -36,9 +37,9 @@ def train_and_val():
     for index in validation_set_indices:
         validation_set.append(features_labels_pair[index])
     
-    dp.remove_ambiguous_entry(validation_set)
+    #dp.remove_ambiguous_entry(validation_set)
     for feature_vector, correct_class in validation_set: 
-        prediction = k_nn.predict_diff_bases(feature_vector)
+        prediction = k_nn.predict_codon_manhattan(feature_vector, k_nn.no_weight)
         if  prediction != correct_class:
             error_count += 1
         if correct_class == 1:

@@ -34,6 +34,50 @@ class Features:
         else:
             return [0,2]
             
+    def _convert_to_amino(self, codon):
+        if codon in ['TTT','TTC']:
+            return 'Phe'
+        if codon in ['TTA','TTG','CTT','CTC','CTA','CTG']:
+            return 'Leu'
+        if codon in ['ATT','ATC','ATA']:
+            return 'lle'
+        if codon in ['ATG']:
+            return 'Met'
+        if codon in ['GTT','GTC','GTA','GTG']:
+            return 'Val'
+        if codon in ['TCT','TCC','TCA','TCG','ATG','AGC']:
+            return 'Ser'
+        if codon in ['CCT','CCC','CCA','CCG']:
+            return 'Pro'
+        if codon in ['ACT','ACC','ACA','ACG']:
+            return 'Thr'
+        if codon in ['GCT','GCC','GCA','GCG']:
+            return 'Ala'
+        if codon in ['TAT', 'TAC']:
+            return 'Tyr'
+        if codon in ['TAA', 'TGA', 'TAG']:
+            return 'STOP'
+        if codon in ['CAT', 'CAC']:
+            return 'His'
+        if codon in ['CAA', 'CAG']:
+            return 'Gln'
+        if codon in ['AAT', 'AAC']:
+            return 'Asn'
+        if codon in ['AAA', 'AAG']:
+            return 'Lys'
+        if codon in ['GAT', 'GAC']:
+            return 'Asp'
+        if codon in ['GAA', 'GAG']:            
+            return 'Glu'
+        if codon in ['TGT, TGC']:
+            return 'Cys'
+        if codon in ['TGG']:
+            return 'Trp'
+        if codon in ['CGT', 'CGC', 'CGA', 'CGG', 'AGA', 'AGG']:
+            return 'Arg'
+        if codon in ['GGT', 'GGC', 'GGA', 'GGG']:
+            return 'Gly'
+            
     def simple(self, data):
         training_data = []
         for dna_seq, label in data:
@@ -59,5 +103,19 @@ class Features:
             training_data.append((feature, label))
         return training_data
         
-    def amino_acid_freq(self, data):
-        return 0
+    def amino_acid_count(self, data):
+        training_data = []
+        for dna_seq_simple, label in data:
+            feature = {}
+            for i in range(len(dna_seq_simple)):
+                bases = dna_seq_simple
+                if i > 57:
+                    break
+                amino_acid = self._convert_to_amino(bases[i]+bases[i+1]+bases[i+2])
+                if (amino_acid) in feature:
+                    feature[amino_acid] += 1
+                else:
+                    feature[amino_acid] = 1
+            
+            training_data.append((feature, label))
+        return training_data
