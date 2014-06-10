@@ -69,3 +69,9 @@ def remove_ambiguous_entry(data):
         for base in entry[0]:
             if len(base) != 1:
                 data.remove(entry)
+                
+def remove_ambiguous_entry_plus(data):
+    for entry in data:
+        if 'D' in entry[0] or 'N' in entry[0] or 'S' in entry[0] or 'R' in entry[0]:
+            data.remove(key)
+            

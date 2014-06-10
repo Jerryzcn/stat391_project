@@ -43,8 +43,21 @@ class Features:
             training_data.append((tmp, label))
         return training_data
         
-    def codon(self, data):
-        return 0
+    def codon_count(self, data):
+        training_data = []
+        for dna_seq_simple, label in data:
+            feature = {}
+            for i in range(len(dna_seq_simple)):
+                bases = dna_seq_simple
+                if i > 57:
+                    break
+                if (bases[i]+bases[i+1]+bases[i+2]) in feature:
+                    feature[bases[i]+bases[i+1]+bases[i+2]] += 1
+                else:
+                    feature[bases[i]+bases[i+1]+bases[i+2]] = 1
+            
+            training_data.append((feature, label))
+        return training_data
         
-    def amino_acid(self, data):
+    def amino_acid_freq(self, data):
         return 0

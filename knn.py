@@ -30,14 +30,13 @@ class KNN:
             dna_class[neighbor[1]] += weight_fn(neighbor[0])
         return np.argmax(dna_class)
         
-    def predict(self, features, weight_fn):
+    def predict_codon_manhattan(self, features, weight_fn):
         neighbor_distance = []
         for instance in self.instances:
             distance = 0
             for feature in features:
                 for instance_feature in instance[0]:
-                    if feature[0] != instance_feature[0]:
-                        distance += 1
+                    distance += np.abs(features[feature]-instance[0][instance_feature])
             neighbor_distance.append((distance, instance[1]))
         k_nearest_neighbors = heapq.nsmallest(self.k, neighbor_distance)
         dna_class = [0,0,0]
