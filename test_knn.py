@@ -17,7 +17,7 @@ def train_and_test():
     training_set = feature.codon_count(training_data)
     test_set = feature.codon_count(test_data)
     
-    k_nearest_neighbors = KNN(training_set, 7)
+    k_nearest_neighbors = KNN(training_set, 19)
     
     error_count = 0
     for index in range(len(test_set)):

@@ -35,8 +35,10 @@ class KNN:
         for instance in self.instances:
             distance = 0
             for feature in features:
-                for instance_feature in instance[0]:
-                    distance += np.abs(features[feature]-instance[0][instance_feature])
+                if feature in instance[0]:
+                    distance += np.abs(features[feature]-instance[0][feature])
+                else:
+                    distance += features[feature]
             neighbor_distance.append((distance, instance[1]))
         k_nearest_neighbors = heapq.nsmallest(self.k, neighbor_distance)
         dna_class = [0,0,0]
