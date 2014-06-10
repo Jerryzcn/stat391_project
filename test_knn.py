@@ -13,11 +13,11 @@ def train_and_test():
     training_data = dp.read_data('dataset/splice-Xtrain.dat', 'dataset/splice-Ytrain.dat')
     test_data = dp.read_data('dataset/test40.txt', 'dataset/ytest40.txt')
     feature = Features()
-    dp.remove_ambiguous_entry(training_data)
-    training_set = feature.codon_count(training_data)
-    test_set = feature.codon_count(test_data)
+    dp.remove_ambiguous_entry_plus(training_data)
+    training_set = feature.amino_acid_count(training_data)
+    test_set = feature.amino_acid_count(test_data)
     
-    k_nearest_neighbors = KNN(training_set, 19)
+    k_nearest_neighbors = KNN(training_set, 22)
     
     error_count = 0
     for index in range(len(test_set)):
