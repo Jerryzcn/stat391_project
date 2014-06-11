@@ -58,7 +58,12 @@ def train_and_val():
                 num_correct_prediction2 += 1
         #print prediction, correct_class
     error_rate = float(error_count)/len(validation_set_indices)
+    print 'total', len(validation_set)
     print 'error rate:', error_rate
+    print 'num_class1', num_class1
+    print 'num_class2', num_class2
+    print 'num_recalled2', num_recalled2
+    print 'num_recalled1', num_recalled1
     print 'recall of class 1:', float(num_recalled1)/num_class1
     print 'recall of class 2:', float(num_recalled2)/num_class2  
     print 'precision of class 1:', float(num_correct_prediction1)/num_class1_prediction    
