@@ -33,7 +33,7 @@ def train_and_val():
     
     dp.remove_ambiguous_entry_plus(validation_set)
     for feature_vector, correct_class in validation_set: 
-        prediction = k_nn.predict_codon_manhattan(feature_vector, k_nn.no_weight)
+        prediction = k_nn.predict_codon_cosine(feature_vector, k_nn.no_weight)
         total += 1
         if prediction == correct_class:
             correct += 1

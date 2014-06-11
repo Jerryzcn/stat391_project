@@ -117,7 +117,7 @@ class Features:
                     feature[amino_acid] += 1
                 else:
                     feature[amino_acid] = 1
-                j += 1
+                j += 3
             
             training_data.append((feature, label))
         return training_data
