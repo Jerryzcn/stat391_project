@@ -103,4 +103,4 @@ class KNN:
         return 60 - distance
 
     def quadratic_weight(self, distance):
-        return 360 - distance**2
+        return 3600 - distance**2

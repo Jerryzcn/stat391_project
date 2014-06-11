@@ -20,7 +20,7 @@ def train_and_val():
         training_set.append(features_labels_pair[index])
     
     dp.remove_ambiguous_entry(training_set)
-    k_nn = KNN(training_set, 14)
+    k_nn = KNN(training_set, 19)
     
     confusion_matrix = np.zeros([3,3])
     correct = 0.0

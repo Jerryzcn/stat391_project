@@ -7,6 +7,7 @@ Created on Mon Jun 09 17:54:23 2014
 
 
 import data_processor as dp
+import numpy as np
 from feature_selection import Features
 from knn import KNN
 
@@ -14,62 +15,49 @@ def train_and_val():
     training_data = dp.read_data('dataset/splice-Xtrain.dat', 'dataset/splice-Ytrain.dat')
     training_set_indices, validation_set_indices = dp.read_training_val_set('dataset/train.txt', 'dataset/val.txt')
     feature = Features()
-    dp.remove_ambiguous_entry(training_data)
     features_labels_pair = feature.amino_acid_count(training_data)
     training_set = []
     for index in training_set_indices:
         training_set.append(features_labels_pair[index])
     
-    #dp.remove_ambiguous_entry(training_set)
-    k_nn = KNN(training_set, 15)
+    dp.remove_ambiguous_entry_plus(training_set)
+    k_nn = KNN(training_set, 23)
     
-    error_count = 0
-    num_recalled1 = 0
-    num_recalled2 = 0
-    num_correct_prediction1 = 0
-    num_correct_prediction2 = 0
-    num_class2 = 0
-    num_class1 = 0
-    num_class1_prediction = 0
-    num_class2_prediction = 0
+    confusion_matrix = np.zeros([3,3])
+    correct = 0.0
+    total = 0.0
     
     validation_set = []
     for index in validation_set_indices:
         validation_set.append(features_labels_pair[index])
     
-    #dp.remove_ambiguous_entry(validation_set)
+    dp.remove_ambiguous_entry_plus(validation_set)
     for feature_vector, correct_class in validation_set: 
         prediction = k_nn.predict_codon_manhattan(feature_vector, k_nn.no_weight)
-        if  prediction != correct_class:
-            error_count += 1
-        if correct_class == 1:
-            num_class1 += 1
-            if prediction == 1:
-                num_recalled1 += 1
-        if correct_class == 2:
-            num_class2 += 1
-            if prediction == 2:
-                num_recalled2 += 1
-        if prediction == 1:
-            num_class1_prediction += 1
-            if correct_class == 1:
-                num_correct_prediction1 += 1
-        if prediction == 2:
-            num_class2_prediction += 1
-            if correct_class == 2:
-                num_correct_prediction2 += 1
+        total += 1
+        if prediction == correct_class:
+            correct += 1
+        if prediction == 0 and correct_class == 0:
+            confusion_matrix[0,0] += 1
+        if  prediction == 0 and correct_class == 1:
+            confusion_matrix[0,1] += 1
+        if  prediction == 0 and correct_class == 2:
+            confusion_matrix[0,2] += 1
+        if  prediction == 1 and correct_class == 0:
+            confusion_matrix[1,0] += 1
+        if  prediction == 1 and correct_class == 1:
+            confusion_matrix[1,1] += 1
+        if  prediction == 1 and correct_class == 2:
+            confusion_matrix[1,2] += 1
+        if  prediction == 2 and correct_class == 0:
+            confusion_matrix[2,0] += 1
+        if  prediction == 2 and correct_class == 1:
+            confusion_matrix[2,1] += 1
+        if  prediction == 2 and correct_class == 2:
+            confusion_matrix[2,2] += 1  
         #print prediction, correct_class
-    error_rate = float(error_count)/len(validation_set_indices)
-    print 'total', len(validation_set)
-    print 'error rate:', error_rate
-    print 'num_class1', num_class1
-    print 'num_class2', num_class2
-    print 'num_recalled2', num_recalled2
-    print 'num_recalled1', num_recalled1
-    print 'recall of class 1:', float(num_recalled1)/num_class1
-    print 'recall of class 2:', float(num_recalled2)/num_class2  
-    print 'precision of class 1:', float(num_correct_prediction1)/num_class1_prediction    
-    print 'precision of class 2:', float(num_correct_prediction2)/num_class2_prediction     
+    print confusion_matrix      
+    print correct/total     
     
 def generate_train_val():
     training_data = dp.read_data('dataset/splice-Xtrain.dat','dataset/splice-Ytrain.dat')
