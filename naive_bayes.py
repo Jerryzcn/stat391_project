@@ -36,7 +36,7 @@ class NaiveBayes:
                 for k in range(self.num_feature_type):
                     if smoothing:
                         #laplace smoothing
-                        self.conditional_likelihood[i,j,k] = (observation[i,j,k]+1)/(self.prior[i]+self.num_feature_type*60)
+                        self.conditional_likelihood[i,j,k] = (observation[i,j,k]+1)/(self.prior[i]+self.num_feature_type)
                     else:
                         self.conditional_likelihood[i,j,k] = observation[i,j,k]/self.prior[i]
         

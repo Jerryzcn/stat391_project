@@ -18,7 +18,7 @@ def train_and_val():
     for index in training_set_indices:
         training_set.append(features_labels_pair[index])
     
-    dp.remove_ambiguous_entry(training_set)
+    #dp.remove_ambiguous_entry(training_set)
     naive_bayes = NaiveBayes(training_set, 4, False)
     
     validation_set = []
