@@ -17,12 +17,12 @@ def train_and_test():
     training_set = feature.amino_acid_count(training_data)
     test_set = feature.amino_acid_count(test_data)
     
-    k_nearest_neighbors = KNN(training_set, 22)
+    k_nearest_neighbors = KNN(training_set, 51)
     
     error_count = 0
     for index in range(len(test_set)):
         feature_vector, correct_class = test_set[index]
-        prediction = k_nearest_neighbors.predict_codon_manhattan(feature_vector, k_nearest_neighbors.no_weight)
+        prediction = k_nearest_neighbors.predict_codon_cosine(feature_vector, k_nearest_neighbors.no_weight)
         if  prediction != correct_class:
             error_count += 1
         print prediction, correct_class

@@ -107,15 +107,17 @@ class Features:
         training_data = []
         for dna_seq_simple, label in data:
             feature = {}
+            j = 0
             for i in range(len(dna_seq_simple)):
                 bases = dna_seq_simple
-                if i > 57:
+                if j > 57:
                     break
-                amino_acid = self._convert_to_amino(bases[i]+bases[i+1]+bases[i+2])
+                amino_acid = self._convert_to_amino(bases[j]+bases[j+1]+bases[j+2])
                 if (amino_acid) in feature:
                     feature[amino_acid] += 1
                 else:
                     feature[amino_acid] = 1
+                j += 3
             
             training_data.append((feature, label))
         return training_data

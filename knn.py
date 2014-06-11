@@ -68,7 +68,30 @@ class KNN:
         print k_nearest_neighbors
         for neighbor in k_nearest_neighbors:
             dna_class[neighbor[1]] += weight_fn(neighbor[0])
-        return np.argmax(dna_class)    
+        return np.argmax(dna_class)
+        
+    def predict_codon_cosine(self, features, weight_fn):
+        neighbor_distance = []
+        for instance in self.instances:
+            distance = 0
+            feature_norm = 0
+            instance_norm = 0
+            for feature in features:
+                if feature in instance[0]:
+                    distance += (features[feature]*instance[0][feature])
+                feature_norm += features[feature]**2
+            feature_norm = np.sqrt(feature_norm)
+            for instance_feature in instance[0]:
+                instance_norm += instance[0][instance_feature]**2
+            instance_norm = np.sqrt(instance_norm)
+            similarity = distance/(feature_norm*instance_norm)
+            neighbor_distance.append((similarity, instance[1]))
+        k_nearest_neighbors = heapq.nlargest(self.k, neighbor_distance)
+        dna_class = [0,0,0]
+        print k_nearest_neighbors
+        for neighbor in k_nearest_neighbors:
+            dna_class[neighbor[1]] += weight_fn(neighbor[0])
+        return np.argmax(dna_class)   
     
     def no_weight(self, distance):
         return distance

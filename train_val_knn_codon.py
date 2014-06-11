@@ -21,7 +21,7 @@ def train_and_val():
         training_set.append(features_labels_pair[index])
     
     #dp.remove_ambiguous_entry(training_set)
-    k_nn = KNN(training_set, 22)
+    k_nn = KNN(training_set, 15)
     
     error_count = 0
     num_recalled1 = 0
